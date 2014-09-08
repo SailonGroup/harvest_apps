@@ -24,7 +24,7 @@ Upon retrieval, the Invoices API is used to pull each invoice data individually 
 
 The "invoice_app.sh" script does not cache any data and relies on Harvest as the ultimate source of your data.
 
-You may also find interesting our "Final Invoice App" which is required when using Harvest for "Proforma Invoices" or "Request for Payments". When a "Proforma Invoice" or "Request for Payment" is fully paid, you may require to produce a final fiscal invoice to your client containing all line items as well as payments. You can find more detail about this app at https://github.com/davbusu/harvest_apps/tree/master/final_invoice_app.
+You may also find interesting our "Final Invoice App" which is required when using Harvest for "Proforma Invoices" or "Request for Payments". When a "Proforma Invoice" or "Request for Payment" is fully paid, you may require to produce a final fiscal invoice to your client containing all line items as well as payments. You can find more detail about this app at https://github.com/SailonGroup/harvest_apps/tree/master/final_invoice_app.
 
 ## Version History
 
@@ -37,4 +37,4 @@ v1.0 has been built and tested on:
 
 ## Installation Guide
 
-Please follow the instructions in https://github.com/davbusu/harvest_apps/blob/master/invoice_app/INSTALLATION.md.
+Please follow the instructions in https://github.com/SailonGroup/harvest_apps/blob/master/invoice_app/INSTALLATION.md.
