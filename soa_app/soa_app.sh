@@ -891,11 +891,12 @@ if [ "${INVOICES_DELTA_MATCHES}" -gt "0" ]; then
 </html>" >> "${HTML_TEMPLATE}"
 							
 							# CHECK PDF FOLDER FOR STATEMENT OF ACCOUNT OF CLIENT
-							CLIENT_PDF_FOLDER="${PDF_FOLDER}/${TEMPLATE_CLIENT_NAME}"
-							if [ ! -d "${CLIENT_PDF_FOLDER}" ]; then
-								mkdir "${CLIENT_PDF_FOLDER}"
-							fi
-							SOA_PDF_FOLDER="${CLIENT_PDF_FOLDER}/${SOAS}"
+							#CLIENT_PDF_FOLDER="${PDF_FOLDER}/${TEMPLATE_CLIENT_NAME}"
+							#if [ ! -d "${CLIENT_PDF_FOLDER}" ]; then
+							#	mkdir "${CLIENT_PDF_FOLDER}"
+							#fi
+							#SOA_PDF_FOLDER="${CLIENT_PDF_FOLDER}/${SOAS}"
+							SOA_PDF_FOLDER="${PDF_FOLDER}/${SOAS}"
 							if [ ! -d "${SOA_PDF_FOLDER}" ]; then
 								mkdir "${SOA_PDF_FOLDER}"
 							fi

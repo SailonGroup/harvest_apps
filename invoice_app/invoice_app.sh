@@ -1091,11 +1091,12 @@ if [ "${INVOICES_DELTA_MATCHES}" -gt "0" ]; then
 </html>" >> "${HTML_TEMPLATE}"
 						
 						# CHECK PDF FOLDER FOR INVOICE OF CLIENT
-						CLIENT_PDF_FOLDER="${PDF_FOLDER}/${TEMPLATE_CLIENT_NAME}"
-						if [ ! -d "${CLIENT_PDF_FOLDER}" ]; then
-							mkdir "${CLIENT_PDF_FOLDER}"
-						fi
-						INVOICE_PDF_FOLDER="${CLIENT_PDF_FOLDER}/${INVOICES}"
+						#CLIENT_PDF_FOLDER="${PDF_FOLDER}/${TEMPLATE_CLIENT_NAME}"
+						#if [ ! -d "${CLIENT_PDF_FOLDER}" ]; then
+						#	mkdir "${CLIENT_PDF_FOLDER}"
+						#fi
+						#INVOICE_PDF_FOLDER="${CLIENT_PDF_FOLDER}/${INVOICES}"
+						INVOICE_PDF_FOLDER="${PDF_FOLDER}/${INVOICES}"
 						if [ ! -d "${INVOICE_PDF_FOLDER}" ]; then
 							mkdir "${INVOICE_PDF_FOLDER}"
 						fi
