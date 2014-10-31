@@ -7,7 +7,7 @@ In our company, we use Harvest to issue "Request for Payments". This is easily a
 1. A statement containing all outstanding invoices, "Proforma Invoices" or "Request for Payments" at a particular date.
 2. A statement which contains both outstanding as well as paid invoices, "Proforma Invoices" or "Request for Payments" for a particular period.
 
-The "soa_app.sh" script is based on (1). I might revisit (2) with another script in the near future. Although internally we use Harvest to issue "Request for Payments", the "soa_app.sh" script can be used for normal Harvest invoices. We shall refer to such documents as invoices hereto in order to avoid confusion.
+The "soa_app.sh" script is based on (1). We might revisit (2) with another script in the near future. Although internally we use Harvest to issue "Request for Payments", the "soa_app.sh" script can be used for normal Harvest invoices. We shall refer to such documents as invoices hereto in order to avoid confusion.
 
 This script periodically checks for outstanding invoices in Harvest by using the Harvest API (https://github.com/harvesthq/api) and generates "Statement of Accounts" for clients in PDF format using the same Harvest invoice PDF template. The following sections are used:
 

@@ -122,9 +122,9 @@ PS C:\> Set-AzureSubscription -SubscriptionName $mySubscription -CurrentStorageA
 
 ### Certificates
 
-This wasted me nearly 3 hours until I got it figured out right. Follow the instructions at http://azure.microsoft.com/en-us/documentation/articles/virtual-machines-linux-use-ssh-key/. You have instructions for both Linux and Windows.
+This wasted me nearly 3 hours until we got it figured out right. Follow the instructions at http://azure.microsoft.com/en-us/documentation/articles/virtual-machines-linux-use-ssh-key/. You have instructions for both Linux and Windows.
 
-I created mine with my CentOS 6.5 Linux machine at my home which I use for testing. Reason being is that openssl comes included and therefore I did not require to install any additional software.
+I created mine with my CentOS 6.5 Linux machine at my home which we use for testing. Reason being is that openssl comes included and therefore we did not require to install any additional software.
 
 I followed the instructions, however you must *note* with a big bold that the keys generated are in *x509* format. Both PuTTY and the ssh command on linux machines use *rsa* format. What you need to do is the following (assuming you used the filenames in the tutorial).
 
@@ -145,7 +145,7 @@ Also, you will need the Fingerprint of the certificate. On Linux, you can easily
 1A11111A1111AAA1A1111AA11AA111111A11A1A1
 ```
 
-The "1A11111A1111AAA1A1111AA11AA111111A11A1A1" is the Fingerprint. For the Windows equivalent, I guess you need to Google a bit :¬).
+The "1A11111A1111AAA1A1111AA11AA111111A11A1A1" is the Fingerprint. For the Windows equivalent, we guess you need to Google a bit :¬).
 
 You can download both PuTTYgen and PuTTY here http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html.
 
@@ -160,7 +160,7 @@ PS C:\> New-AzureService -ServiceName $myService -Location $myLocation
 PS C:\> Add-AzureCertificate -CertToDeploy "C:\...\...\...\myCert.cer" -ServiceName $myService
 ```
 
-Now the following is really important. First, think of the Linux admin username that you will use (no spaces or fancy characters). I am using "dbusuttil" in my case. Note how the "Path" is set with the username in place. *Very important*. You will also need the Fingerprint we retrieved earlier.
+Now the following is really important. First, think of the Linux admin username that you will use (no spaces or fancy characters). We am using "dbusuttil" in my case. Note how the "Path" is set with the username in place. *Very important*. You will also need the Fingerprint we retrieved earlier.
 
 ```powershell
 PS C:\> $SSHKey = New-AzureSSHKey -PublicKey -Fingerprint 1A11111A1111AAA1A1111AA11AA111111A11A1A1 -Path "/home/dbusuttil/.ssh/authorized_keys"
@@ -168,7 +168,7 @@ PS C:\> $SSHKey = New-AzureSSHKey -PublicKey -Fingerprint 1A11111A1111AAA1A1111A
 
 ### (The Sacred) CentOS 6.5 Linux VM
 
-Finaaalllyyyy....... Can I start singing? First, get a Reserved Public IP Address.
+Finaaalllyyyy....... Can we start singing? First, get a Reserved Public IP Address.
 
 ```powershell
 PS C:\> New-AzureReservedIP

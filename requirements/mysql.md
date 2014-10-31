@@ -6,7 +6,7 @@ The ".sh" script requires "mysql" to be installed on your machine and in the PAT
 chkconfig mysqld on
 ```
 
-If you run the "mysql_secure_installation" as per guide (which I recommend you do), it will set "sql_mode" to be in strict mode. This will produce an error for columns that are marked as "NOT NULL" but have a default value. You need to disable it.
+If you run the "mysql_secure_installation" as per guide (which we recommend you do), it will set "sql_mode" to be in strict mode. This will produce an error for columns that are marked as "NOT NULL" but have a default value. You need to disable it.
 
 ```bash
 vi /etc/my.cnf
