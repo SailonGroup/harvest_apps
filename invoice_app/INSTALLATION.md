@@ -49,9 +49,10 @@ The "invoice_app.sh" script requires that several folders and files to be availa
 
 The folder structure generated is:
 
-1. "[Client Name]/[Invoices]/[INVOICE]\_[Invoice_Number]\_DDMMYYYY\_[Company_Name].pdf".
+1. "[Client Name]/[Invoices]/[INVOICE]\_[Invoice_Number]\_DDMMYYYY\_[Company_Name].pdf", or
+2. "[Invoices]/[INVOICE]\_[Invoice_Number]\_DDMMYYYY\_[Company_Name].pdf".
 
-Note that all elements are configurable from the DB. We shall get to that in a moment.
+The selection between the above can be changed by commenting and uncommenting the respective lines within the script. Note that all elements are configurable from the DB. We shall get to that in a moment.
 
 Ensure that all variables in the "invoice_app.sh" script for folders and files are configured properly.
 
