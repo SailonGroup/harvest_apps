@@ -724,7 +724,7 @@ if [ "${INVOICES_DELTA_MATCHES}" -gt "0" ]; then
 									-u "${HARVEST_USERNAME}:${HARVEST_PASSWORD}" \
 									"https://${HARVEST_SUBDOMAIN}.harvestapp.com/invoices/${SOA_INVOICE_ID}/payments" \
 									> "${SOA_INVOICE_PAYMENT_LINE_ITEMS_XML_FILE}"
-
+									
 									# CHECK FOR INVOICE PAYMENT LINE ITEMS FOR INVOICE RETRIEVED
 									SOA_INVOICE_PAYMENT_LINE_ITEMS_MATCHES="$(grep -c "<payment>" "${SOA_INVOICE_PAYMENT_LINE_ITEMS_XML_FILE}")"
 									
@@ -779,15 +779,15 @@ if [ "${INVOICES_DELTA_MATCHES}" -gt "0" ]; then
 								</td>
 								<td class=\"item-description\">
 									${TEMPLATE_INVOICE_PAYMENT_LINE_ITEM_DESCRIPTION}$(
-											
-											# SHOW NOTES
-											if [ "${TEMPLATE_INVOICE_PAYMENT_LINE_ITEM_HAS_NOTES}" == "true" ]; then
-												echo -n " (${TEMPLATE_INVOICE_PAYMENT_LINE_ITEM_NOTES})"
-											else
-												echo -n " (${RETAINER})"
-											fi
-											
-											)
+												
+												# SHOW NOTES
+												if [ "${TEMPLATE_INVOICE_PAYMENT_LINE_ITEM_HAS_NOTES}" == "true" ]; then
+													echo -n " (${TEMPLATE_INVOICE_PAYMENT_LINE_ITEM_NOTES})"
+												else
+													echo -n " (${RETAINER})"
+												fi
+												
+												)
 								</td>
 								<td class=\"item-qty desktop\">
 									${RECEIVED}
