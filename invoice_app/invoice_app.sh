@@ -408,14 +408,20 @@ if [ "${INVOICES_DELTA_MATCHES}" -gt "0" ]; then
 					"${MYSQL_DB}" \
 					> "${INVOICE_LINE_ITEMS_CSV_FILE}"
 					
-					# CLEAN CSV FILE
-					sed -i 's/\\n[ ]*/\n/g' \
+					# CLEAN CSV FILE (^M SHOULD BE DONE THROUGH VI USING CTRL-SHIFT-V CTRL-SHIFT-M)
+					sed -i -e 's/^M\\n[ ]*/\\r/g' \
+					-e 's/\\n[ ]*/\n/g' \
+					-e 's/\\r/\\n/g' \
 					"${INVOICE_LINE_ITEMS_CSV_FILE}"
-					sed -i -e '/^$/d' -e '1d' -e 's/^/NULL,/g' \
+					sed -i -e '/^$/d' \
+					-e '1d' \
+					-e 's/^/NULL,/g' \
+					"${INVOICE_LINE_ITEMS_CSV_FILE}"
+					sed -i -e 's/\\n/\n/g' \
 					"${INVOICE_LINE_ITEMS_CSV_FILE}"
 					
 					# CHECK NUMBER OF LINE ITEMS FOR INVOICE RETRIEVED
-					INVOICE_TOTAL_LINE_ITEMS_MATCHES="$(wc -l < ${INVOICE_LINE_ITEMS_CSV_FILE})"
+					INVOICE_TOTAL_LINE_ITEMS_MATCHES="$(grep -c "NULL," "${INVOICE_LINE_ITEMS_CSV_FILE}")"
 					
 					if [ "${INVOICE_TOTAL_LINE_ITEMS_MATCHES}" -gt "0" ]; then
 						
@@ -820,7 +826,12 @@ if [ "${INVOICES_DELTA_MATCHES}" -gt "0" ]; then
 									${TEMPLATE_LINE_ITEM_TYPE}
 								</td>
 								<td class=\"item-description\">
-									${TEMPLATE_LINE_ITEM_DESCRIPTION}
+									$(
+							
+							# FORMAT LINE ITEM DESCRIPTION
+							echo -n "${TEMPLATE_LINE_ITEM_DESCRIPTION}" | sed 's/\\n/\n							<br>/g'
+							
+							)
 								</td>
 								<td class=\"item-qty desktop\">
 									${TEMPLATE_LINE_ITEM_QUANTITY}

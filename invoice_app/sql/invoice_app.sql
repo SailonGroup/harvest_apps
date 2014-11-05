@@ -60,7 +60,7 @@ DROP TABLE IF EXISTS `invoice_app_invoice_line_items`;
 CREATE TABLE `invoice_app_invoice_line_items` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `kind` varchar(100) DEFAULT NULL,
-  `description` varchar(250) DEFAULT NULL,
+  `description` blob,
   `quantity` decimal(20,2) NOT NULL DEFAULT '0.00',
   `unit_price` decimal(20,2) NOT NULL DEFAULT '0.00',
   `amount` decimal(20,2) NOT NULL DEFAULT '0.00',
