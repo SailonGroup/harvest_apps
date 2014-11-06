@@ -189,7 +189,7 @@ WKHTMLTOPDF_FOOTER_FONT_NAME="HelveticaNeueLTW1G"
 WKHTMLTOPDF_FOOTER_FONT_SIZE="9"
 ```
 
-# Using the Final Invoice App
+# Using the Invoice App
 
 Having completed all of the steps in the Installation Guide, you can run the "invoice_app.sh" script through bash or shell.
 

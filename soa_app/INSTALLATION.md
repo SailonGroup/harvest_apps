@@ -189,7 +189,7 @@ WKHTMLTOPDF_FOOTER_FONT_NAME="HelveticaNeueLTW1G"
 WKHTMLTOPDF_FOOTER_FONT_SIZE="9"
 ```
 
-# Using the Final Invoice App
+# Using the Statement of Account App
 
 Having completed all of the steps in the Installation Guide, you can run the "soa_app.sh" script through bash or shell.
 
