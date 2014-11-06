@@ -209,7 +209,7 @@ PATH=/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/home/harvest_
 MAILFROM=centos.apps.machine@contosogroup.com
 MAILTO=itss@contosogroup.com
 
-* * * * * /home/harvest_apps/full_soa_app/full_soa_app.sh 1> /dev/null
+0 6 1 * * /home/harvest_apps/full_soa_app/full_soa_app.sh 1> /dev/null
 ```
 
 The "full_soa_app.sh" script uses a simple but efficient locking mechanism that does not allow 2 instances to run simultaneously. In the event that the lockfile is found but there is no process instance running, an error email notification is sent. 
