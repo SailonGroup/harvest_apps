@@ -69,38 +69,38 @@ LOCK_FILE="${BASE_FOLDER}/soa_app.lock"
 # CHECK STATIC FOLDERS
 if [ ! -d "${BASE_FOLDER}" ]; then
 	echo "[$(date +%Y-%m-%d+%H:%M:%S)] COULD NOT FIND '${BASE_FOLDER}', EXITING" 1>&2
-	echo "[$(date +%Y-%m-%d+%H:%M:%S)] COULD NOT FIND '${BASE_FOLDER}', EXITING" | xargs -I % echo -e "To: <${SENDMAIL_ERROR_TO_EMAIL}>\nFrom: ${SENDMAIL_ERROR_FROM_NAME} <${SENDMAIL_ERROR_FROM_EMAIL}>\nSubject: ${SENDMAIL_ERROR_SUBJECT}\nMIME-Version: 1.0\nContent-Type: text/plain\n\n%\n\n" | sendmail -t
+	echo "[$(date +%Y-%m-%d+%H:%M:%S)] COULD NOT FIND '${BASE_FOLDER}', EXITING" | xargs -I % -0 echo -e "To: <${SENDMAIL_ERROR_TO_EMAIL}>\nFrom: ${SENDMAIL_ERROR_FROM_NAME} <${SENDMAIL_ERROR_FROM_EMAIL}>\nSubject: ${SENDMAIL_ERROR_SUBJECT}\nMIME-Version: 1.0\nContent-Type: text/plain\n\n%\n\n" | sendmail -t
 	exit 1
 fi
 
 if [ ! -d "${CSS_FOLDER}" ]; then
 	echo "[$(date +%Y-%m-%d+%H:%M:%S)] COULD NOT FIND '${CSS_FOLDER}', EXITING" 1>&2
-	echo "[$(date +%Y-%m-%d+%H:%M:%S)] COULD NOT FIND '${CSS_FOLDER}', EXITING" | xargs -I % echo -e "To: <${SENDMAIL_ERROR_TO_EMAIL}>\nFrom: ${SENDMAIL_ERROR_FROM_NAME} <${SENDMAIL_ERROR_FROM_EMAIL}>\nSubject: ${SENDMAIL_ERROR_SUBJECT}\nMIME-Version: 1.0\nContent-Type: text/plain\n\n%\n\n" | sendmail -t
+	echo "[$(date +%Y-%m-%d+%H:%M:%S)] COULD NOT FIND '${CSS_FOLDER}', EXITING" | xargs -I % -0 echo -e "To: <${SENDMAIL_ERROR_TO_EMAIL}>\nFrom: ${SENDMAIL_ERROR_FROM_NAME} <${SENDMAIL_ERROR_FROM_EMAIL}>\nSubject: ${SENDMAIL_ERROR_SUBJECT}\nMIME-Version: 1.0\nContent-Type: text/plain\n\n%\n\n" | sendmail -t
 	exit 1
 fi
 
 if [ ! -d "${FONTS_FOLDER}" ]; then
 	echo "[$(date +%Y-%m-%d+%H:%M:%S)] COULD NOT FIND '${FONTS_FOLDER}', EXITING" 1>&2
-	echo "[$(date +%Y-%m-%d+%H:%M:%S)] COULD NOT FIND '${FONTS_FOLDER}', EXITING" | xargs -I % echo -e "To: <${SENDMAIL_ERROR_TO_EMAIL}>\nFrom: ${SENDMAIL_ERROR_FROM_NAME} <${SENDMAIL_ERROR_FROM_EMAIL}>\nSubject: ${SENDMAIL_ERROR_SUBJECT}\nMIME-Version: 1.0\nContent-Type: text/plain\n\n%\n\n" | sendmail -t
+	echo "[$(date +%Y-%m-%d+%H:%M:%S)] COULD NOT FIND '${FONTS_FOLDER}', EXITING" | xargs -I % -0 echo -e "To: <${SENDMAIL_ERROR_TO_EMAIL}>\nFrom: ${SENDMAIL_ERROR_FROM_NAME} <${SENDMAIL_ERROR_FROM_EMAIL}>\nSubject: ${SENDMAIL_ERROR_SUBJECT}\nMIME-Version: 1.0\nContent-Type: text/plain\n\n%\n\n" | sendmail -t
 	exit 1
 fi
 
 # CHECK STATIC FILES
 if [ ! -s "${FONTFACE_CSS_FILE}" ]; then
 	echo "[$(date +%Y-%m-%d+%H:%M:%S)] COULD NOT FIND '${FONTFACE_CSS_FILE}', EXITING" 1>&2
-	echo "[$(date +%Y-%m-%d+%H:%M:%S)] COULD NOT FIND '${FONTFACE_CSS_FILE}', EXITING" | xargs -I % echo -e "To: <${SENDMAIL_ERROR_TO_EMAIL}>\nFrom: ${SENDMAIL_ERROR_FROM_NAME} <${SENDMAIL_ERROR_FROM_EMAIL}>\nSubject: ${SENDMAIL_ERROR_SUBJECT}\nMIME-Version: 1.0\nContent-Type: text/plain\n\n%\n\n" | sendmail -t
+	echo "[$(date +%Y-%m-%d+%H:%M:%S)] COULD NOT FIND '${FONTFACE_CSS_FILE}', EXITING" | xargs -I % -0 echo -e "To: <${SENDMAIL_ERROR_TO_EMAIL}>\nFrom: ${SENDMAIL_ERROR_FROM_NAME} <${SENDMAIL_ERROR_FROM_EMAIL}>\nSubject: ${SENDMAIL_ERROR_SUBJECT}\nMIME-Version: 1.0\nContent-Type: text/plain\n\n%\n\n" | sendmail -t
 	exit 1
 fi
 
 if [ ! -s "${PRINT_CSS_FILE}" ]; then
 	echo "[$(date +%Y-%m-%d+%H:%M:%S)] COULD NOT FIND '${PRINT_CSS_FILE}', EXITING" 1>&2
-	echo "[$(date +%Y-%m-%d+%H:%M:%S)] COULD NOT FIND '${PRINT_CSS_FILE}', EXITING" | xargs -I % echo -e "To: <${SENDMAIL_ERROR_TO_EMAIL}>\nFrom: ${SENDMAIL_ERROR_FROM_NAME} <${SENDMAIL_ERROR_FROM_EMAIL}>\nSubject: ${SENDMAIL_ERROR_SUBJECT}\nMIME-Version: 1.0\nContent-Type: text/plain\n\n%\n\n" | sendmail -t
+	echo "[$(date +%Y-%m-%d+%H:%M:%S)] COULD NOT FIND '${PRINT_CSS_FILE}', EXITING" | xargs -I % -0 echo -e "To: <${SENDMAIL_ERROR_TO_EMAIL}>\nFrom: ${SENDMAIL_ERROR_FROM_NAME} <${SENDMAIL_ERROR_FROM_EMAIL}>\nSubject: ${SENDMAIL_ERROR_SUBJECT}\nMIME-Version: 1.0\nContent-Type: text/plain\n\n%\n\n" | sendmail -t
 	exit 1
 fi
 
 if [ ! -s "${INLINE_CSS_FILE}" ]; then
 	echo "[$(date +%Y-%m-%d+%H:%M:%S)] COULD NOT FIND '${INLINE_CSS_FILE}', EXITING" 1>&2
-	echo "[$(date +%Y-%m-%d+%H:%M:%S)] COULD NOT FIND '${INLINE_CSS_FILE}', EXITING" | xargs -I % echo -e "To: <${SENDMAIL_ERROR_TO_EMAIL}>\nFrom: ${SENDMAIL_ERROR_FROM_NAME} <${SENDMAIL_ERROR_FROM_EMAIL}>\nSubject: ${SENDMAIL_ERROR_SUBJECT}\nMIME-Version: 1.0\nContent-Type: text/plain\n\n%\n\n" | sendmail -t
+	echo "[$(date +%Y-%m-%d+%H:%M:%S)] COULD NOT FIND '${INLINE_CSS_FILE}', EXITING" | xargs -I % -0 echo -e "To: <${SENDMAIL_ERROR_TO_EMAIL}>\nFrom: ${SENDMAIL_ERROR_FROM_NAME} <${SENDMAIL_ERROR_FROM_EMAIL}>\nSubject: ${SENDMAIL_ERROR_SUBJECT}\nMIME-Version: 1.0\nContent-Type: text/plain\n\n%\n\n" | sendmail -t
 	exit 1
 fi
 
@@ -109,7 +109,7 @@ if [ ! -f "${LOCK_FILE}" ]; then
 	touch "${LOCK_FILE}"
 elif [ "$(pgrep "${0##*/}" | wc -l)" -eq "0" ]; then
 	echo "[$(date +%Y-%m-%d+%H:%M:%S)] FOUND '${LOCK_FILE}' BUT NO PROCESS RUNNING, EXITING" 1>&2
-	echo "[$(date +%Y-%m-%d+%H:%M:%S)] FOUND '${LOCK_FILE}' BUT NO PROCESS RUNNING, EXITING" | xargs -I % echo -e "To: <${SENDMAIL_ERROR_TO_EMAIL}>\nFrom: ${SENDMAIL_ERROR_FROM_NAME} <${SENDMAIL_ERROR_FROM_EMAIL}>\nSubject: ${SENDMAIL_ERROR_SUBJECT}\nMIME-Version: 1.0\nContent-Type: text/plain\n\n%\n\n" | sendmail -t
+	echo "[$(date +%Y-%m-%d+%H:%M:%S)] FOUND '${LOCK_FILE}' BUT NO PROCESS RUNNING, EXITING" | xargs -I % -0 echo -e "To: <${SENDMAIL_ERROR_TO_EMAIL}>\nFrom: ${SENDMAIL_ERROR_FROM_NAME} <${SENDMAIL_ERROR_FROM_EMAIL}>\nSubject: ${SENDMAIL_ERROR_SUBJECT}\nMIME-Version: 1.0\nContent-Type: text/plain\n\n%\n\n" | sendmail -t
 	exit 1
 else
 	exit 0
@@ -820,14 +820,14 @@ if [ "${INVOICES_DELTA_MATCHES}" -gt "0" ]; then
 											
 										else
 											# SEND ERROR, REMOVE LOCK FILE AND EXIT
-											echo "[$(date +%Y-%m-%d+%H:%M:%S)] NO INVOICE PAYMENT LINE ITEMS IDS FOR INVOICE '${SOA_INVOICE_ID}' RETRIEVED" | tee -a "${LOG_FILE}" | xargs -I % echo -e "To: <${SENDMAIL_ERROR_TO_EMAIL}>\nFrom: ${SENDMAIL_ERROR_FROM_NAME} <${SENDMAIL_ERROR_FROM_EMAIL}>\nSubject: ${SENDMAIL_ERROR_SUBJECT}\nMIME-Version: 1.0\nContent-Type: text/plain\n\n%\n\n" | sendmail -t
+											echo "[$(date +%Y-%m-%d+%H:%M:%S)] NO INVOICE PAYMENT LINE ITEMS IDS FOR INVOICE '${SOA_INVOICE_ID}' RETRIEVED" | tee -a "${LOG_FILE}" | xargs -I % -0 echo -e "To: <${SENDMAIL_ERROR_TO_EMAIL}>\nFrom: ${SENDMAIL_ERROR_FROM_NAME} <${SENDMAIL_ERROR_FROM_EMAIL}>\nSubject: ${SENDMAIL_ERROR_SUBJECT}\nMIME-Version: 1.0\nContent-Type: text/plain\n\n%\n\n" | sendmail -t
 											rm "${LOCK_FILE}"
 											exit 1
 										fi
 										
 									else
 										# SEND ERROR, REMOVE LOCK FILE AND EXIT
-										echo "[$(date +%Y-%m-%d+%H:%M:%S)] NO INVOICE PAYMENT LINE ITEMS FOR INVOICE '${SOA_INVOICE_ID}' RETRIEVED" | tee -a "${LOG_FILE}" | xargs -I % echo -e "To: <${SENDMAIL_ERROR_TO_EMAIL}>\nFrom: ${SENDMAIL_ERROR_FROM_NAME} <${SENDMAIL_ERROR_FROM_EMAIL}>\nSubject: ${SENDMAIL_ERROR_SUBJECT}\nMIME-Version: 1.0\nContent-Type: text/plain\n\n%\n\n" | sendmail -t
+										echo "[$(date +%Y-%m-%d+%H:%M:%S)] NO INVOICE PAYMENT LINE ITEMS FOR INVOICE '${SOA_INVOICE_ID}' RETRIEVED" | tee -a "${LOG_FILE}" | xargs -I % -0 echo -e "To: <${SENDMAIL_ERROR_TO_EMAIL}>\nFrom: ${SENDMAIL_ERROR_FROM_NAME} <${SENDMAIL_ERROR_FROM_EMAIL}>\nSubject: ${SENDMAIL_ERROR_SUBJECT}\nMIME-Version: 1.0\nContent-Type: text/plain\n\n%\n\n" | sendmail -t
 										rm "${LOCK_FILE}"
 										exit 1
 									fi
@@ -1075,7 +1075,7 @@ $(base64 "${PDF_FILE}")
 							
 						else
 							# SEND ERROR, REMOVE LOCK FILE AND EXIT
-							echo "[$(date +%Y-%m-%d+%H:%M:%S)] (ERROR) NO LINE ITEMS FOR STATEMENT OF ACCOUNT OF CLIENT '${ID}' RETRIEVED" | tee -a "${LOG_FILE}" | xargs -I % echo -e "To: <${SENDMAIL_ERROR_TO_EMAIL}>\nFrom: ${SENDMAIL_ERROR_FROM_NAME} <${SENDMAIL_ERROR_FROM_EMAIL}>\nSubject: ${SENDMAIL_ERROR_SUBJECT}\nMIME-Version: 1.0\nContent-Type: text/plain\n\n%\n\n" | sendmail -t
+							echo "[$(date +%Y-%m-%d+%H:%M:%S)] (ERROR) NO LINE ITEMS FOR STATEMENT OF ACCOUNT OF CLIENT '${ID}' RETRIEVED" | tee -a "${LOG_FILE}" | xargs -I % -0 echo -e "To: <${SENDMAIL_ERROR_TO_EMAIL}>\nFrom: ${SENDMAIL_ERROR_FROM_NAME} <${SENDMAIL_ERROR_FROM_EMAIL}>\nSubject: ${SENDMAIL_ERROR_SUBJECT}\nMIME-Version: 1.0\nContent-Type: text/plain\n\n%\n\n" | sendmail -t
 							rm "${LOCK_FILE}"
 							exit 1
 						fi
@@ -1117,7 +1117,7 @@ $(base64 "${PDF_FILE}")
 		
 	else
 		# SEND ERROR, REMOVE LOCK FILE AND EXIT
-		echo "[$(date +%Y-%m-%d+%H:%M:%S)] (ERROR) NO CLIENTS RETRIEVED" | tee -a "${LOG_FILE}" | xargs -I % echo -e "To: <${SENDMAIL_ERROR_TO_EMAIL}>\nFrom: ${SENDMAIL_ERROR_FROM_NAME} <${SENDMAIL_ERROR_FROM_EMAIL}>\nSubject: ${SENDMAIL_ERROR_SUBJECT}\nMIME-Version: 1.0\nContent-Type: text/plain\n\n%\n\n" | sendmail -t
+		echo "[$(date +%Y-%m-%d+%H:%M:%S)] (ERROR) NO CLIENTS RETRIEVED" | tee -a "${LOG_FILE}" | xargs -I % -0 echo -e "To: <${SENDMAIL_ERROR_TO_EMAIL}>\nFrom: ${SENDMAIL_ERROR_FROM_NAME} <${SENDMAIL_ERROR_FROM_EMAIL}>\nSubject: ${SENDMAIL_ERROR_SUBJECT}\nMIME-Version: 1.0\nContent-Type: text/plain\n\n%\n\n" | sendmail -t
 		rm "${LOCK_FILE}"
 		exit 1
 	fi
