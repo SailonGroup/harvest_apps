@@ -23,7 +23,7 @@ WKHTMLTOPDF_FOOTER_FONT_SIZE="9"
 ## SENDMAIL PARAMETERS
 SENDMAIL_ERROR_FROM_NAME="CentOS APPS.MACHINE"
 SENDMAIL_ERROR_FROM_EMAIL="centos.apps.machine@contosogroup.com"
-SENDMAIL_ERROR_TO_EMAIL="itss@contosogroup.com"
+SENDMAIL_ERROR_TO_EMAIL="it@contosogroup.com"
 SENDMAIL_ERROR_SUBJECT="Error from soa_app.sh on $(hostname)"
 SENDMAIL_FROM_NAME="Contoso Group Billing"
 SENDMAIL_FROM_EMAIL="billing@contosogroup.com"
@@ -447,6 +447,9 @@ if [ "${INVOICES_DELTA_MATCHES}" -gt "0" ]; then
 							TEMPLATE_CLIENT_NAME="$(mysql --login-path="${MYSQL_LOGIN_PATH}" --default-character-set=utf8 --batch --skip-column-names \
 							-e "SELECT \`name\` FROM \`soa_app_clients\` WHERE \`id\` = ${ID};" \
 							"${MYSQL_DB}")"
+							TEMPLATE_HAS_CLIENT_ADDRESS="$(mysql --login-path="${MYSQL_LOGIN_PATH}" --default-character-set=utf8 --batch --skip-column-names \
+							-e "SELECT CASE WHEN \`details\` IS NOT NULL THEN 'true' ELSE 'false' END FROM \`soa_app_clients\` WHERE \`id\` = ${ID};" \
+							"${MYSQL_DB}")"
 							TEMPLATE_CLIENT_ADDRESS="$(mysql --login-path="${MYSQL_LOGIN_PATH}" --default-character-set=utf8 --batch --skip-column-names \
 							-e "SELECT \`details\` FROM \`soa_app_clients\` WHERE \`id\` = ${ID};" \
 							"${MYSQL_DB}")"
@@ -606,7 +609,9 @@ if [ "${INVOICES_DELTA_MATCHES}" -gt "0" ]; then
 									$(
 							
 							# FORMAT CLIENT ADDRESS
-							echo -n "${TEMPLATE_CLIENT_ADDRESS}" | sed 's/\\n/\n									<br>/g'
+							if [ "${TEMPLATE_HAS_CLIENT_ADDRESS}" == "true" ]; then
+								echo -n "${TEMPLATE_CLIENT_ADDRESS}" | sed 's/\\n/\n									<br>/g'
+							fi
 							
 							)
 								</span>
