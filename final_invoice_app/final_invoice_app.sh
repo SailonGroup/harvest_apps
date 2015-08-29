@@ -439,7 +439,7 @@ if [ "${INVOICES_DELTA_MATCHES}" -gt "0" ]; then
 						-e "SELECT \`name\` FROM \`final_invoice_app_clients\` WHERE \`id\` = (SELECT \`client-id\` FROM \`final_invoice_app_invoices\` WHERE \`id\` = ${ID});" \
 						"${MYSQL_DB}")"
 						TEMPLATE_HAS_CLIENT_ADDRESS="$(mysql --login-path="${MYSQL_LOGIN_PATH}" --default-character-set=utf8 --batch --skip-column-names \
-						-e "SELECT CASE WHEN \`details\` IS NOT NULL THEN 'true' ELSE 'false' END FROM \`final_invoice_app_invoices\` WHERE \`id\` = ${ID};" \
+						-e "SELECT CASE WHEN \`details\` IS NOT NULL THEN 'true' ELSE 'false' END FROM \`final_invoice_app_clients\` WHERE \`id\` = ${ID};" \
 						"${MYSQL_DB}")"
 						TEMPLATE_CLIENT_ADDRESS="$(mysql --login-path="${MYSQL_LOGIN_PATH}" --default-character-set=utf8 --batch --skip-column-names \
 						-e "SELECT \`details\` FROM \`final_invoice_app_clients\` WHERE \`id\` = (SELECT \`client-id\` FROM \`final_invoice_app_invoices\` WHERE \`id\` = ${ID});" \
