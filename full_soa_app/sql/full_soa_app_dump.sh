@@ -14,6 +14,7 @@ MYSQL_LOGIN_PATH="harvest_apps"
 MYSQL_DB="harvest"
 MYSQL_TABLES="\
 full_soa_app_clients \
+full_soa_app_contacts \
 full_soa_app_invoice_payments \
 full_soa_app_invoices \
 full_soa_app_settings \

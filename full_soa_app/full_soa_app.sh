@@ -27,7 +27,6 @@ SENDMAIL_ERROR_TO_EMAIL="it@contosogroup.com"
 SENDMAIL_ERROR_SUBJECT="Error from full_soa_app.sh on $(hostname)"
 SENDMAIL_FROM_NAME="Contoso Group Billing"
 SENDMAIL_FROM_EMAIL="billing@contosogroup.com"
-SENDMAIL_TO_EMAIL="billing@contosogroup.com"
 ## HARVEST API CALL PARAMETERS
 SLEEP_TIME="1s"
 CONCURRENT_THREADS="2"
@@ -52,7 +51,9 @@ LOGO_HEIGHT="60"
 LOGO_WIDTH="200"
 ## WORK FILES
 CLIENTS_XML_FILE="${TMP_FOLDER}/clients.xml"
-CLIENT_IDS_TXT_FILE="${TMP_FOLDER}/invoices_open_partial_paid_client_ids.txt"
+CLIENT_IDS_TXT_FILE="${TMP_FOLDER}/client_ids.txt"
+CONTACTS_XML_FILE="${TMP_FOLDER}/contacts.xml"
+CONTACT_IDS_TXT_FILE="${TMP_FOLDER}/contact_ids.txt"
 INVOICES_OPEN_PARTIAL_FOR_CLIENTS_XML_FILE="${TMP_FOLDER}/invoices_open_partial_for_clients.xml"
 INVOICES_OPEN_PARTIAL_CLIENT_IDS_TXT_FILE="${TMP_FOLDER}/invoices_open_partial_client_ids.txt"
 SOA_LINE_ITEMS_FOR_CLIENT_TXT_FILE="${TMP_FOLDER}/soa_line_items_for_client.txt"
@@ -187,6 +188,55 @@ if [ "${CLIENTS_MATCHES}" -gt "0" ]; then
 		
 		# SHOW NUMBER OF CLIENT IDS RETRIEVED
 		echo "[$(date +%Y-%m-%d+%H:%M:%S)] '${CLIENT_IDS_MATCHES}' CLIENT IDS RETRIEVED" | tee -a "${LOG_FILE}"
+		
+		# PULL DATA FOR CONTACTS FROM HARVEST
+		curl -H "Content-Type: application/xml" -H "Accept: application/xml" -S -s \
+		-u "${HARVEST_USERNAME}:${HARVEST_PASSWORD}" \
+		"https://${HARVEST_SUBDOMAIN}.harvestapp.com/contacts" \
+		> "${CONTACTS_XML_FILE}"
+		
+		# CHECK NUMBER OF CONTACTS RETRIEVED
+		CONTACTS_MATCHES="$(grep -c "<contact>" "${CONTACTS_XML_FILE}")"
+		
+		if [ "${CONTACTS_MATCHES}" -gt "0" ]; then
+			
+			# SHOW NUMBER OF CONTACTS RETRIEVED
+			echo "[$(date +%Y-%m-%d+%H:%M:%S)] '${CONTACTS_MATCHES}' CONTACTS RETRIEVED" | tee -a "${LOG_FILE}"
+			
+			# CLEAN XML FILES
+			sed -i -e '/^<?xml version.*/d' -e 's/ type=".*"//g' \
+			-e '/nil="true"/d' -e '/<.*\/>/d' \
+			"${CONTACTS_XML_FILE}"
+			
+			# LOAD DATA TO DB
+			mysql --login-path="${MYSQL_LOGIN_PATH}" --default-character-set="utf8" -X \
+			-e "LOAD XML LOCAL INFILE '${CONTACTS_XML_FILE}' INTO TABLE \`full_soa_app_contacts\` ROWS IDENTIFIED BY '<contact>';" \
+			"${MYSQL_DB}"
+			
+			# RETRIEVE CONTACT IDS FROM DB
+			mysql --login-path="${MYSQL_LOGIN_PATH}" --default-character-set="utf8" --batch --skip-column-names \
+			-e "SELECT \`id\`FROM \`full_soa_app_contacts\`" \
+			"${MYSQL_DB}" \
+			> "${CONTACT_IDS_TXT_FILE}"
+			
+			# CHECK NUMBER OF CONTACT IDS RETRIEVED
+			CONTACT_IDS_MATCHES="$(wc -l < "${CONTACT_IDS_TXT_FILE}")"
+			
+			if [ "${CONTACT_IDS_MATCHES}" -gt "0" ]; then
+				
+				# SHOW NUMBER OF CONTACT IDS RETRIEVED
+				echo "[$(date +%Y-%m-%d+%H:%M:%S)] '${CONTACT_IDS_MATCHES}' CONTACT IDS RETRIEVED" | tee -a "${LOG_FILE}"
+				
+			else
+				# SEND ERROR, REMOVE LOCK FILE AND EXIT
+				echo "[$(date +%Y-%m-%d+%H:%M:%S)] (ERROR) NO CONTACT IDS RETRIEVED" | tee -a "${LOG_FILE}" | xargs -I % -0 echo -e "To: <${SENDMAIL_ERROR_TO_EMAIL}>\nFrom: ${SENDMAIL_ERROR_FROM_NAME} <${SENDMAIL_ERROR_FROM_EMAIL}>\nSubject: ${SENDMAIL_ERROR_SUBJECT}\nMIME-Version: 1.0\nContent-Type: text/plain\n\n%\n\n" | sendmail -t
+				rm "${LOCK_FILE}"
+				exit 1
+			fi
+		
+		else
+			echo "[$(date +%Y-%m-%d+%H:%M:%S)] NO CONTACTS RETRIEVED" | tee -a "${LOG_FILE}"
+		fi
 		
 		# PULL DATA FOR INVOICES OPEN AND PARTIAL FOR CLIENTS FROM HARVEST
 		while read ID; do
@@ -893,14 +943,26 @@ if [ "${CLIENTS_MATCHES}" -gt "0" ]; then
 						--footer-font-size "${WKHTMLTOPDF_FOOTER_FONT_SIZE}" \
 						"${PDF_FILE}"
 						
-						# CONSTRUCT EMAIL HTML TEMPLATE FOR STATEMENT OF ACCOUNT OF CLIENT
-						EMAIL_HTML_TEMPLATE="${TMP_FOLDER}/${SOA_DOCUMENT_TITLE_FILE}_EMAIL_${TEMPLATE_CLIENT_NAME_FILE}_${CURRENT_DATE_FILE}_${NAME_FILE}.html"
-						EMAIL_HTML_TEMPLATE_BOUNDARY="$(uuidgen)"
-						echo -e "\
+						# FETCH EMAIL TEMPLATE PARAMETERS FROM DB FOR STATEMENT OF ACCOUNT
+						EMAIL_TEMPLATE_HAS_CONTACTS="$(mysql --login-path="${MYSQL_LOGIN_PATH}" --default-character-set=utf8 --batch --skip-column-names \
+						-e "SELECT CASE WHEN COUNT(*) > 0 THEN 'true' ELSE 'false' END FROM \`full_soa_app_contacts\` WHERE \`client-id\` = ${ID} AND \`email\` IS NOT NULL;" \
+						"${MYSQL_DB}")"
+						EMAIL_TEMPLATE_CONTACTS="$(mysql --login-path="${MYSQL_LOGIN_PATH}" --default-character-set=utf8 --batch --skip-column-names \
+						-e "SELECT GROUP_CONCAT(CONCAT(\`first-name\`,' ',\`last-name\`,' ','<',\`email\`,'>') SEPARATOR ', ') FROM \`full_soa_app_contacts\` WHERE \`client-id\` = ${ID};" \
+						"${MYSQL_DB}")"
+						
+						# SEND EMAIL FOR STATEMENT OF ACCOUNT OF CLIENT
+						if [ "${EMAIL_TEMPLATE_HAS_CONTACTS}" == "true" ]; then
+							
+							# CONSTRUCT EMAIL HTML TEMPLATE FOR STATEMENT OF ACCOUNT OF CLIENT
+							EMAIL_HTML_TEMPLATE="${TMP_FOLDER}/${SOA_DOCUMENT_TITLE_FILE}_EMAIL_${TEMPLATE_CLIENT_NAME_FILE}_${CURRENT_DATE_FILE}_${NAME_FILE}.html"
+							EMAIL_HTML_TEMPLATE_BOUNDARY="$(uuidgen)"
+							echo -e "\
 Date: $(date "+%a"), $(date "+%d" | sed 's/^[0]//g') $(date "+%b %Y %T %z")
 From: ${SENDMAIL_FROM_NAME} <${SENDMAIL_FROM_EMAIL}>
 Reply-To: ${SENDMAIL_FROM_NAME} <${SENDMAIL_FROM_EMAIL}>
-To: <${SENDMAIL_TO_EMAIL}>
+To: ${EMAIL_TEMPLATE_CONTACTS}
+Bcc: ${SENDMAIL_FROM_NAME} <${SENDMAIL_FROM_EMAIL}>
 Message-ID: <$(uuidgen)@$(hostname)>
 Subject: ${SOA} ${CURRENT_DATE} for ${TEMPLATE_CLIENT_NAME}
 MIME-Version: 1.0
@@ -1040,10 +1102,12 @@ Content-Disposition: attachment;
 
 $(base64 "${PDF_FILE}")
 --${EMAIL_HTML_TEMPLATE_BOUNDARY}--" > "${EMAIL_HTML_TEMPLATE}"
-						
-						# INITIATE SENDMAIL PROCESS FOR STATEMENT OF ACCOUNT OF CLIENT
-						echo "[$(date +%Y-%m-%d+%H:%M:%S)] INITIATING SENDMAIL PROCESS FOR STATEMENT OF ACCOUNT OF CLIENT '${ID}'" | tee -a "${LOG_FILE}"
-						sendmail -t < "${EMAIL_HTML_TEMPLATE}"
+							
+							# INITIATE SENDMAIL PROCESS FOR STATEMENT OF ACCOUNT OF CLIENT
+							echo "[$(date +%Y-%m-%d+%H:%M:%S)] INITIATING SENDMAIL PROCESS FOR STATEMENT OF ACCOUNT OF CLIENT '${ID}'" | tee -a "${LOG_FILE}"
+							sendmail -t < "${EMAIL_HTML_TEMPLATE}"
+							
+						fi
 						
 					else
 						# SEND ERROR, REMOVE LOCK FILE AND EXIT

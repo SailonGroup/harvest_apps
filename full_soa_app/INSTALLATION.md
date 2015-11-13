@@ -123,12 +123,13 @@ mysql> SHOW TABLES;
 | Tables_in_harvest                   |
 +-------------------------------------+
 | full_soa_app_clients                |
+| full_soa_app_contacts               |
 | full_soa_app_invoice_payments       |
 | full_soa_app_invoices               |
 | full_soa_app_settings               |
 | full_soa_app_template_settings      |
 +-------------------------------------+
-5 rows in set (0.00 sec)
+6 rows in set (0.00 sec)
 
 mysql> exit
 ```
@@ -158,11 +159,10 @@ Ensure that the variables for "sendmail" in the "full_soa_app.sh" script are con
 ## SENDMAIL PARAMETERS
 SENDMAIL_ERROR_FROM_NAME="CentOS APPS.MACHINE"
 SENDMAIL_ERROR_FROM_EMAIL="centos.apps.machine@contosogroup.com"
-SENDMAIL_ERROR_TO_EMAIL="itss@contosogroup.com"
+SENDMAIL_ERROR_TO_EMAIL="it@contosogroup.com"
 SENDMAIL_ERROR_SUBJECT="Error from full_soa_app.sh on $(hostname)"
 SENDMAIL_FROM_NAME="Contoso Group Billing"
 SENDMAIL_FROM_EMAIL="billing@contosogroup.com"
-SENDMAIL_TO_EMAIL="billing@contosogroup.com"
 ```
 
 ## wkhtmltopdf
@@ -207,7 +207,7 @@ crontab -l
 SHELL=/bin/sh
 PATH=/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/home/harvest_apps//bin
 MAILFROM=centos.apps.machine@contosogroup.com
-MAILTO=itss@contosogroup.com
+MAILTO=it@contosogroup.com
 
 0 6 1 * * /home/harvest_apps/full_soa_app/full_soa_app.sh 1> /dev/null
 ```

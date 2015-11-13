@@ -51,6 +51,41 @@ LOCK TABLES `full_soa_app_clients` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `full_soa_app_contacts`
+--
+
+DROP TABLE IF EXISTS `full_soa_app_contacts`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `full_soa_app_contacts` (
+  `id` bigint(20) NOT NULL,
+  `title` varchar(250) DEFAULT NULL,
+  `first-name` varchar(250) DEFAULT NULL,
+  `last-name` varchar(250) DEFAULT NULL,
+  `email` varchar(250) DEFAULT NULL,
+  `phone-mobile` varchar(250) DEFAULT NULL,
+  `phone-office` varchar(250) DEFAULT NULL,
+  `fax` varchar(250) DEFAULT NULL,
+  `client-id` bigint(20) DEFAULT NULL,
+  `created-at` datetime DEFAULT NULL,
+  `updated-at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  KEY `full_soa_app_contacts_client-id_idx` (`client-id`),
+  CONSTRAINT `full_soa_app_contacts_client-id` FOREIGN KEY (`client-id`) REFERENCES `full_soa_app_clients` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `full_soa_app_contacts`
+--
+
+LOCK TABLES `full_soa_app_contacts` WRITE;
+/*!40000 ALTER TABLE `full_soa_app_contacts` DISABLE KEYS */;
+/*!40000 ALTER TABLE `full_soa_app_contacts` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `full_soa_app_invoice_payments`
 --
 
