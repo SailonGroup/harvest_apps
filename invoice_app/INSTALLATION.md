@@ -158,7 +158,7 @@ Ensure that the variables for "sendmail" in the "invoice_app.sh" script are conf
 ## SENDMAIL PARAMETERS
 SENDMAIL_ERROR_FROM_NAME="CentOS APPS.MACHINE"
 SENDMAIL_ERROR_FROM_EMAIL="centos.apps.machine@contosogroup.com"
-SENDMAIL_ERROR_TO_EMAIL="itss@contosogroup.com"
+SENDMAIL_ERROR_TO_EMAIL="it@contosogroup.com"
 SENDMAIL_ERROR_SUBJECT="Error from invoice_app.sh on $(hostname)"
 SENDMAIL_FROM_NAME="Contoso Group Billing"
 SENDMAIL_FROM_EMAIL="billing@contosogroup.com"
@@ -207,7 +207,7 @@ crontab -l
 SHELL=/bin/sh
 PATH=/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/home/harvest_apps//bin
 MAILFROM=centos.apps.machine@contosogroup.com
-MAILTO=itss@contosogroup.com
+MAILTO=it@contosogroup.com
 
 * * * * * /home/harvest_apps/invoice_app/invoice_app.sh 1> /dev/null
 ```
