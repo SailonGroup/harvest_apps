@@ -30,4 +30,4 @@ v1.0 has been built and tested on:
 
 ## Installation Guide
 
-Please follow the instructions in https://github.com/SailonGroup/harvest_apps/blob/master/final_invoice_app/INSTALLATION.md.
+Please follow the instructions in https://github.com/BusuttilGroup/harvest_apps/blob/master/final_invoice_app/INSTALLATION.md.

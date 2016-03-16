@@ -8,7 +8,7 @@ We use Harvest to store "Request for Payments" rather than invoices per se. This
 
 ## Final Invoice App
 
-https://github.com/SailonGroup/harvest_apps/tree/master/final_invoice_app.
+https://github.com/BusuttilGroup/harvest_apps/tree/master/final_invoice_app.
 
 Harvest (www.getHarvest.com) does not include the feature of "Proforma Invoices" or "Request for Payments" alongside its built-in invoices. This may be required for bookkeeping and tax purposes.
 
@@ -40,7 +40,7 @@ v1.0 has been built and tested on:
 
 ## Invoice App
 
-https://github.com/SailonGroup/harvest_apps/tree/master/invoice_app.
+https://github.com/BusuttilGroup/harvest_apps/tree/master/invoice_app.
 
 Harvest (www.getHarvest.com) does not include the feature of "Proforma Invoices" or "Request for Payments" alongside its built-in invoices. This may be required for bookkeeping and tax purposes.
 
@@ -77,7 +77,7 @@ v1.0 has been built and tested on:
 
 ## Statement of Account App
 
-https://github.com/SailonGroup/harvest_apps/tree/master/soa_app.
+https://github.com/BusuttilGroup/harvest_apps/tree/master/soa_app.
 
 Harvest (www.getHarvest.com) does not include the feature of issuing "Statement of Accounts" in PDF format. This may be required to send to clients alongside issued invoices.
 

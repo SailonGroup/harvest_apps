@@ -4,11 +4,11 @@ Please ensure that all criteria specified below is met.
 
 ## Linux Machine
 
-Before proceeding, either make sure that you have a Linux machine or VM up and running. Please read https://github.com/SailonGroup/harvest_apps/blob/master/requirements/centos_azure.md if you wish to deploy a CentOS Linux VM on Windows Azure with reserved public IP address.
+Before proceeding, either make sure that you have a Linux machine or VM up and running. Please read https://github.com/BusuttilGroup/harvest_apps/blob/master/requirements/centos_azure.md if you wish to deploy a CentOS Linux VM on Windows Azure with reserved public IP address.
 
 ## Folders and Files
 
-Before proceeding, please read this guide https://github.com/SailonGroup/harvest_apps/blob/master/requirements/username.md.
+Before proceeding, please read this guide https://github.com/BusuttilGroup/harvest_apps/blob/master/requirements/username.md.
 
 Download all folders and files in the git hub repository and place them on your machine. A zip file has been compiled to expedite the process and download it directly with "wget". Make sure to do so using the machine account that shall execute the "full_soa_app.sh" script. First check that you are in the correct path.
 
@@ -22,7 +22,7 @@ Then proceed with the rest of the commands.
 ```bash
 mkdir full_soa_app
 cd full_soa_app
-wget https://github.com/SailonGroup/harvest_apps/blob/master/full_soa_app/full_soa_app.zip?raw=true
+wget https://github.com/BusuttilGroup/harvest_apps/blob/master/full_soa_app/full_soa_app.zip?raw=true
 mv full_soa_app.zip\?raw\=true full_soa_app.zip
 unzip full_soa_app.zip
 ```
@@ -105,7 +105,7 @@ LOG_FILE_RETENTION="30"
 
 ## MySQL
 
-Before proceeding, please read this guide https://github.com/SailonGroup/harvest_apps/blob/master/requirements/mysql.md.
+Before proceeding, please read this guide https://github.com/BusuttilGroup/harvest_apps/blob/master/requirements/mysql.md.
 
 Create the table structure in your MySQL DB by loading the mysqldump in the provided "/sql/" folder (remember to change DB in the "full_soa_app.sql" SQL file).
 
@@ -151,7 +151,7 @@ In particular (2) will also affect the names in the folder structure created in 
 
 ## postfix
 
-Before proceeding, please read this guide https://github.com/SailonGroup/harvest_apps/blob/master/requirements/postfix.md.
+Before proceeding, please read this guide https://github.com/BusuttilGroup/harvest_apps/blob/master/requirements/postfix.md.
 
 Ensure that the variables for "sendmail" in the "full_soa_app.sh" script are configured appropriately.
 
